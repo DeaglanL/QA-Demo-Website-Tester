@@ -12,8 +12,15 @@ public class MenuWidgetPage {
 
     Actions a;
 
+
     @FindBy(css = "#navigate ul li:nth-child(1) a")
     private WebElement home;
+
+    @FindBy(css = "#ui-id-2")
+    private WebElement subMenu;
+
+    @FindBy(css = "#tabs-2 #navigate ul  li:nth-child(1) a")
+    private WebElement subMenuHome;
 
     public void hoverOverHome(WebDriver wD)
     {
@@ -23,6 +30,18 @@ public class MenuWidgetPage {
         a.moveToElement(home).perform();
 
 
+    }
+
+    public void hoverOverSubMenuHome(WebDriver wD)
+    {
+        a = new Actions(wD);
+
+
+
+
+        a.moveToElement(subMenuHome);
+
+        a.click().perform();
     }
 
     public void moveDownMenu(WebDriver wD)
@@ -68,5 +87,10 @@ public class MenuWidgetPage {
         }
 
         a.moveByOffset(0,35).perform();
+}
+
+public void clickSubMenu()
+{
+    subMenu.click();
 }
 }

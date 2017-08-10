@@ -129,6 +129,12 @@ public class QaDemoMouse {
 
         menu.moveDownMenu(cwD);
 
+        menu.clickSubMenu();
+
+        menu.hoverOverSubMenuHome(cwD);
+
+        menu.moveDownMenu(cwD);
+
 
 
     }
