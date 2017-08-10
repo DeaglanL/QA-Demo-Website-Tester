@@ -5,6 +5,7 @@ import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
+import com.sun.jna.platform.win32.Wdm;
 import org.junit.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -27,6 +28,7 @@ public class QaDemoMouse {
     private HomePage hp;
     private DraggablePage dragPage;
     private DroppablePage dropPage;
+    private MenuWidgetPage menu;
 
 
     //Extent report generation
@@ -60,6 +62,8 @@ public class QaDemoMouse {
         hp = PageFactory.initElements(cwD, HomePage.class);
         dragPage = PageFactory.initElements(cwD,DraggablePage.class);
         dropPage = PageFactory.initElements(cwD,DroppablePage.class);
+        menu = PageFactory.initElements(cwD, MenuWidgetPage.class);
+
 
         chromeTest = report.createTest("Chrome test");
         fireffoxtest = report.createTest("Firefox test");
@@ -119,7 +123,12 @@ public class QaDemoMouse {
             chromeTest.fail("Box not moved"+ chromeTest.addScreenCaptureFromPath(ScreenShot.take(cwD, "after move")));
 
 
-        //assertEquals("Website not updated", dropPage.getDropBoxText(wD), "Dropped!");
+        dropPage.clickMenuLink();
+
+        menu.hoverOverHome(cwD);
+
+        menu.moveDownMenu(cwD);
+
 
 
     }

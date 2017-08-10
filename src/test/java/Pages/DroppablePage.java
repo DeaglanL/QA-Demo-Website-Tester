@@ -16,6 +16,9 @@ public class DroppablePage {
     @FindBy(css = "#droppableview")
     private WebElement dropBox;
 
+    @FindBy(css = "#menu-item-147 a")
+    private WebElement menuLink;
+
 
     public String getDragBoxPos(WebDriver wD)
     {
@@ -35,6 +38,11 @@ public class DroppablePage {
         a = new Actions(wD);
 
         a.clickAndHold(findDragBox).moveToElement(dropBox).release().perform();
+    }
+
+    public void clickMenuLink()
+    {
+        menuLink.click();
     }
 
 
