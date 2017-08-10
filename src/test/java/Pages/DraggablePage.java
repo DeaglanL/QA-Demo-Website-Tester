@@ -6,6 +6,7 @@ package Pages;
 
         import org.openqa.selenium.interactions.Actions;
         import org.openqa.selenium.support.FindBy;
+        import org.openqa.selenium.support.FindBys;
 
 public class DraggablePage {
 
@@ -14,12 +15,12 @@ public class DraggablePage {
     @FindBy(css = "#draggable")
     private WebElement findDragObject;
 
-    @FindBy(css = "#menu-item-141 > a:nth-child(1)")
+    @FindBy(css = "#menu-item-141 a:nth-child(1)")
     private WebElement findDroppable;
 
     public String getDragBoxPositon(WebDriver wD)
     {
-        Wait.waitToLoad(wD,"#draggable");
+        Wait.waitToLoad(wD,"#menu-item-140 a");
 
         return findDragObject.getLocation().toString();
     }

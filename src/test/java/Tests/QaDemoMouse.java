@@ -10,8 +10,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.ie.InternetExplorerDriver;
+
 
 
 import java.io.IOException;
@@ -24,9 +23,6 @@ public class QaDemoMouse {
     private static WebDriver cwD;
     private static ChromeOptions chromeOptions = new ChromeOptions();
 
-    private static WebDriver iEwD;
-
-    private static WebDriver fFwD;
 
     private HomePage hp;
     private DraggablePage dragPage;
@@ -41,7 +37,6 @@ public class QaDemoMouse {
     private static String reportFilePath = "report.html";
 
 
-    private int counter;
 
     @BeforeClass
     public static void beforeClass()
@@ -58,19 +53,13 @@ public class QaDemoMouse {
     @Before
     public void beforeT()
     {
-        //cwD = new ChromeDriver(chromeOptions);
-
-        fFwD = new FirefoxDriver();
-
-        //iEwD = new InternetExplorerDriver();
+        cwD = new ChromeDriver(chromeOptions);
 
 
 
-
-
-        hp = PageFactory.initElements(fFwD, HomePage.class);
-        dragPage = PageFactory.initElements(fFwD,DraggablePage.class);
-        dropPage = PageFactory.initElements(fFwD,DroppablePage.class);
+        hp = PageFactory.initElements(cwD, HomePage.class);
+        dragPage = PageFactory.initElements(cwD,DraggablePage.class);
+        dropPage = PageFactory.initElements(cwD,DroppablePage.class);
 
         chromeTest = report.createTest("Chrome test");
         fireffoxtest = report.createTest("Firefox test");
@@ -80,11 +69,11 @@ public class QaDemoMouse {
 
     }
 
+    @Test
     public void chromeTest() throws IOException {
 
         //fireFoxTest();
         //ieTest();
-
 
         hp.open(cwD);
         chromeTest.log(Status.INFO, "Website opened");
@@ -133,121 +122,15 @@ public class QaDemoMouse {
         //assertEquals("Website not updated", dropPage.getDropBoxText(wD), "Dropped!");
 
 
-
-
-
     }
 
-    @Test
-    public void fireFoxTest() throws IOException {
-
-        hp.open(fFwD);
-        fireffoxtest.log(Status.INFO, "Website opened");
-
-        hp.clickDraggable(fFwD);
-        fireffoxtest.log(Status.INFO, "Navigate to draggable page");
-
-        String initialBoxPos = dragPage.getDragBoxPositon(fFwD);
-        fireffoxtest.log(Status.INFO, "Click and drag box" + fireffoxtest.addScreenCaptureFromPath(ScreenShot.take(fFwD, "before move")));
-
-
-        dragPage.clickAndDrag(fFwD);
-
-        assertNotEquals("Has not moved", initialBoxPos, dragPage.getDragBoxPositon(fFwD));
-
-        if (!initialBoxPos.equals(dragPage.getDragBoxPositon(fFwD)))
-        {
-            fireffoxtest.log (Status.PASS,"Box Moved"+ fireffoxtest.addScreenCaptureFromPath(ScreenShot.take(fFwD, "after move")));
-
-        }
-        else
-            fireffoxtest.fail("Box not moved"+ fireffoxtest.addScreenCaptureFromPath(ScreenShot.take(fFwD, "after move")));
-
-
-        dragPage.clickDroppable();
-        fireffoxtest.log(Status.INFO, "Navigate to droppable page");
-
-        initialBoxPos = dropPage.getDragBoxPos(fFwD);
-
-        dropPage.dragAndDropBox(fFwD);
-
-        fireffoxtest.log(Status.INFO, "Drag and drop box" + fireffoxtest.addScreenCaptureFromPath(ScreenShot.take(fFwD, "before move")));
-
-
-
-        assertNotEquals("Has not moved", initialBoxPos, dropPage.getDragBoxPos(fFwD));
-
-        if (!initialBoxPos.equals(dropPage.getDragBoxPos(fFwD)))
-        {
-            fireffoxtest.log (Status.PASS,"Dragged and Dropped" + fireffoxtest.addScreenCaptureFromPath(ScreenShot.take(fFwD, "after move")));
-        }
-        else
-            fireffoxtest.fail("Box not moved"+ fireffoxtest.addScreenCaptureFromPath(ScreenShot.take(fFwD, "after move")));
-
-
-        //assertEquals("Website not updated", dropPage.getDropBoxText(wD), "Dropped!");
-
-
-
-    }
-
-    public void ieTest() throws IOException {
-
-        hp.open(iEwD);
-        ietest.log(Status.INFO, "Website opened");
-
-        hp.clickDraggable(iEwD);
-        ietest.log(Status.INFO, "Navigate to draggable page");
-
-        String initialBoxPos = dragPage.getDragBoxPositon(iEwD);
-        ietest.log(Status.INFO, "Click and drag box" + ietest.addScreenCaptureFromPath(ScreenShot.take(iEwD, "before move")));
-
-
-        dragPage.clickAndDrag(iEwD);
-
-        assertNotEquals("Has not moved", initialBoxPos, dragPage.getDragBoxPositon(iEwD));
-
-        if (!initialBoxPos.equals(dragPage.getDragBoxPositon(iEwD)))
-        {
-            ietest.log (Status.PASS,"Box Moved"+ ietest.addScreenCaptureFromPath(ScreenShot.take(iEwD, "after move")));
-
-        }
-        else
-            ietest.fail("Box not moved"+ ietest.addScreenCaptureFromPath(ScreenShot.take(iEwD, "after move")));
-
-
-        dragPage.clickDroppable();
-        ietest.log(Status.INFO, "Navigate to droppable page");
-
-        initialBoxPos = dropPage.getDragBoxPos(iEwD);
-
-        dropPage.dragAndDropBox(iEwD);
-
-        ietest.log(Status.INFO, "Drag and drop box" + ietest.addScreenCaptureFromPath(ScreenShot.take(iEwD, "before move")));
-
-
-
-        assertNotEquals("Has not moved", initialBoxPos, dropPage.getDragBoxPos(iEwD));
-
-        if (!initialBoxPos.equals(dropPage.getDragBoxPos(iEwD)))
-        {
-            ietest.log (Status.PASS,"Dragged and Dropped" + ietest.addScreenCaptureFromPath(ScreenShot.take(iEwD, "after move")));
-        }
-        else
-            ietest.fail("Box not moved"+ ietest.addScreenCaptureFromPath(ScreenShot.take(iEwD, "after move")));
-
-
-        //assertEquals("Website not updated", dropPage.getDropBoxText(wD), "Dropped!");
-
-    }
 
     @After
     public void afterT()
     {
-        //cwD.quit();
-        fFwD.quit();
-        //iEwD.quit();
-        counter++;
+        cwD.quit();
+
+
 
 
 
