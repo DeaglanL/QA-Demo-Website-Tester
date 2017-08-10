@@ -14,6 +14,9 @@ public class DraggablePage {
     @FindBy(css = "#draggable")
     private WebElement findDragObject;
 
+    @FindBy(css = "#menu-item-141 > a:nth-child(1)")
+    private WebElement findDroppable;
+
     public String getDragBoxPositon(WebDriver wD)
     {
         Wait.waitToLoad(wD,"#draggable");
@@ -25,6 +28,11 @@ public class DraggablePage {
     {
         a = new Actions(wD);
 
-        a.clickAndHold(findDragObject).moveByOffset(1160, 1170);
+        a.clickAndHold(findDragObject).moveByOffset(1160, 1170).release().perform();
+    }
+
+    public void clickDroppable()
+    {
+        findDroppable.click();
     }
 }
